@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vista Móvil - Tesla Chile</title>
+    <style>
+      :root {
+        --tesla-red: #e82127;
+        --tesla-black: #171a20;
+        --tesla-graphite: #393c41;
+        --tesla-blue: #3e6ae1;
+        --surface: #eef1f5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        gap: 18px;
+        padding: 28px 16px;
+        background:
+          radial-gradient(circle at top, rgba(62, 106, 225, 0.12), transparent 34%),
+          linear-gradient(180deg, #f8f9fb 0%, var(--surface) 100%);
+        color: var(--tesla-graphite);
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      .preview-wrap {
+        width: min(100%, 520px);
+        display: grid;
+        gap: 16px;
+        justify-items: center;
+      }
+
+      .preview-header {
+        width: 100%;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--tesla-black);
+        font-size: 1.15rem;
+        line-height: 1.15;
+      }
+
+      p {
+        margin: 4px 0 0;
+        color: #5c5e62;
+        font-size: 0.9rem;
+      }
+
+      .size-tabs {
+        display: flex;
+        gap: 6px;
+      }
+
+      .size-tabs button {
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid #dce2e8;
+        border-radius: 8px;
+        background: #ffffff;
+        color: var(--tesla-graphite);
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .size-tabs button.is-active {
+        color: #ffffff;
+        border-color: rgba(57, 60, 65, 0.86);
+        background:
+          linear-gradient(135deg, rgba(232, 33, 39, 0.38) 0%, rgba(232, 33, 39, 0.12) 48%, transparent 74%),
+          linear-gradient(180deg, #62666b 0%, var(--tesla-graphite) 100%);
+      }
+
+      .phone-shell {
+        position: relative;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px;
+        border-radius: 48px;
+        background:
+          linear-gradient(90deg, #050609 0%, #2b2e34 8%, #101218 18%, #050609 100%),
+          linear-gradient(180deg, #393c41 0%, #07080b 100%);
+        box-shadow:
+          0 30px 78px rgba(23, 26, 32, 0.3),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+          inset 0 0 0 2px rgba(0, 0, 0, 0.68);
+      }
+
+      .phone-shell::before,
+      .phone-shell::after {
+        content: "";
+        position: absolute;
+        width: 3px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #2d3036 0%, #08090d 100%);
+        box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.18);
+      }
+
+      .phone-shell::before {
+        left: -3px;
+        top: 118px;
+        height: 74px;
+      }
+
+      .phone-shell::after {
+        right: -3px;
+        top: 148px;
+        height: 112px;
+      }
+
+      .phone-screen {
+        --camera-clearance: 50px;
+        position: relative;
+        overflow: hidden;
+        width: min(393px, calc(100vw - 42px));
+        height: min(82vh, 852px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 40px;
+        background: #ffffff;
+        box-shadow:
+          inset 0 0 0 2px rgba(0, 0, 0, 0.82),
+          inset 0 0 0 3px rgba(255, 255, 255, 0.08);
+      }
+
+      .phone-screen::before {
+        content: "";
+        position: absolute;
+        top: 11px;
+        left: 50%;
+        z-index: 2;
+        width: 102px;
+        height: 29px;
+        border-radius: 999px;
+        background:
+          radial-gradient(circle at 78px 14px, #24272d 0 3px, transparent 4px),
+          linear-gradient(180deg, #050609 0%, #12141a 100%);
+        box-shadow:
+          inset 0 1px 1px rgba(255, 255, 255, 0.1),
+          0 1px 2px rgba(0, 0, 0, 0.42);
+        transform: translateX(-50%);
+      }
+
+      iframe {
+        position: absolute;
+        inset: var(--camera-clearance) 0 0;
+        width: 100%;
+        height: calc(100% - var(--camera-clearance));
+        border: 0;
+        background: #ffffff;
+      }
+
+      .preview-note {
+        max-width: 430px;
+        text-align: center;
+      }
+
+      @media (max-width: 560px) {
+        body {
+          padding: 14px 10px;
+        }
+
+        .preview-header {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .size-tabs {
+          width: 100%;
+        }
+
+        .size-tabs button {
+          flex: 1;
+        }
+
+        .phone-shell {
+          padding: 6px;
+          border-radius: 38px;
+        }
+
+        .phone-screen {
+          width: min(393px, calc(100vw - 32px));
+          height: 82vh;
+          border-radius: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="preview-wrap">
+      <header class="preview-header">
+        <div>
+          <h1>Vista Móvil</h1>
+          <p>La misma app web dentro de una pantalla de teléfono.</p>
+        </div>
+        <div class="size-tabs" aria-label="Tamaño de pantalla">
+          <button class="is-active" type="button" data-width="393" data-height="852">iPhone</button>
+          <button type="button" data-width="430" data-height="932">Max</button>
+        </div>
+      </header>
+
+      <section class="phone-shell" aria-label="Previsualización móvil">
+        <div class="phone-screen" id="phone-screen">
+          <iframe src="index.html" title="App Tesla Chile en vista móvil"></iframe>
+        </div>
+      </section>
+
+      <p class="preview-note">
+        Esta página solo sirve para revisar el diseño móvil. La app principal sigue siendo
+        <strong>index.html</strong>.
+      </p>
+    </main>
+
+    <script>
+      const phoneScreen = document.querySelector("#phone-screen");
+      const buttons = document.querySelectorAll("[data-width]");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          buttons.forEach((item) => item.classList.toggle("is-active", item === button));
+          phoneScreen.style.width = `min(${button.dataset.width}px, calc(100vw - 42px))`;
+          phoneScreen.style.height = `min(${button.dataset.height}px, 82vh)`;
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tesla Chile Costo de Propiedad Total</title>
+    <meta
+      name="description"
+      content="App interactiva para comparar energía, mantención y costo total de propiedad de un Tesla en Chile."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="brand-rail" aria-label="Navegación principal">
+        <img class="mark" src="assets/tesla-t.png" alt="Tesla" />
+        <img class="wordmark" src="assets/tesla-wordmark.png" alt="Tesla" />
+        <nav class="section-tabs" aria-label="Secciones del comparador">
+          <button class="tab is-active" type="button" data-view="energia">Energía</button>
+          <button class="tab" type="button" data-view="mantencion">Mantención</button>
+          <button class="tab" type="button" data-view="total">Total</button>
+        </nav>
+      </aside>
+
+      <main class="dashboard">
+        <header class="topbar">
+          <div class="topbar-title">
+            <h1 id="view-title">Comparación del Ahorro Mensual entre Electricidad y Combustible</h1>
+          </div>
+          <div class="summary-pill">
+            <span>Ahorro Anual Total</span>
+            <strong id="headline-saving">$0</strong>
+          </div>
+        </header>
+
+        <section class="content-grid" aria-label="Panel de comparación">
+          <div class="chart-panel">
+            <div class="panel-heading">
+              <div>
+                <h2 id="chart-title">Gasto Mensual en Energía</h2>
+              </div>
+            </div>
+
+            <div class="bar-chart" role="img" aria-labelledby="chart-title chart-desc">
+              <p id="chart-desc" class="sr-only">Comparación de gasto mensual entre vehículo a combustión y Tesla.</p>
+              <div class="bar-column">
+                <div class="bar-value" id="combustion-value">$0</div>
+                <div class="bar-track">
+                  <div class="bar combustion" id="combustion-bar"></div>
+                </div>
+                <span class="bar-label combustion-label">Vehículo a Combustión</span>
+              </div>
+              <div class="bar-column">
+                <div class="bar-value" id="tesla-value">$0</div>
+                <div class="bar-track">
+                  <div class="bar tesla" id="tesla-bar"></div>
+                </div>
+                <span class="bar-label tesla-label">Tesla</span>
+              </div>
+            </div>
+
+            <p class="source-note" id="source-note">
+              Se utiliza el costo promedio del kWh en Santiago: $233 CLP.
+            </p>
+          </div>
+
+          <aside class="metrics-panel" aria-label="Indicadores de ahorro">
+            <article class="metric-card">
+              <span id="monthly-label">Ahorro Mensual</span>
+              <strong id="monthly-saving">$0</strong>
+            </article>
+            <article class="metric-card">
+              <span id="annual-label">Ahorro Anual</span>
+              <strong id="annual-saving">$0</strong>
+            </article>
+          </aside>
+        </section>
+
+        <section class="controls-band" aria-label="Supuestos editables">
+          <div class="controls-heading">
+            <div>
+              <h2 id="assumptions-heading">Supuestos de Energía</h2>
+            </div>
+            <button class="ghost-button" type="button" id="reset-button">Restablecer</button>
+          </div>
+          <p class="mobile-helper">Por favor, completa los campos requeridos y desliza hacia abajo.</p>
+
+          <div class="assumptions-layout is-focused" id="assumptions-layout">
+            <section class="assumption-panel" data-assumption="energia" aria-label="Supuestos de energía">
+              <div class="control-grid energy-grid">
+                <label class="control-card">
+                  <span>Km por año</span>
+                  <strong id="km-output">20.000 km</strong>
+                  <input id="kmYear" type="range" min="0" max="99000" step="500" value="20000" />
+                </label>
+
+                <label class="control-card">
+                  <span>Rendimiento km/L</span>
+                  <strong id="efficiency-output">10 km/L</strong>
+                  <input id="efficiency" type="range" min="0" max="25" step="0.5" value="10" />
+                </label>
+
+                <label class="control-card">
+                  <span>Combustible</span>
+                  <strong id="fuel-price-output">$1.450/l</strong>
+                  <select id="fuelType">
+                    <option value="bencina95">Bencina 95</option>
+                    <option value="bencina97">Bencina 97</option>
+                    <option value="diesel">Diesel</option>
+                  </select>
+                </label>
+
+                <label class="control-card">
+                  <span>Precio kWh</span>
+                  <strong id="kwh-output">$233</strong>
+                  <input id="kwhPrice" type="range" min="0" max="600" step="1" value="233" />
+                </label>
+
+                <label class="control-card tesla-model-card">
+                  <span>Modelo Tesla</span>
+                  <strong id="tesla-efficiency-output">7,69 km/kWh</strong>
+                  <select id="teslaModel">
+                    <option value="model3-rwd">Model 3 RWD</option>
+                    <option value="model3-premium-rwd">Model 3 Premium RWD</option>
+                    <option value="model3-premium-lr-rwd">Model 3 Premium LR RWD</option>
+                    <option value="model3-premium-lr-awd">Model 3 Premium LR AWD</option>
+                    <option value="model3-performance-awd">Model 3 Performance AWD</option>
+                    <option value="modely-premium-rwd">Model Y Premium RWD</option>
+                    <option value="modely-premium-lr-rwd">Model Y Premium LR RWD</option>
+                    <option value="modely-premium-lr-awd">Model Y Premium LR AWD</option>
+                  </select>
+                </label>
+              </div>
+            </section>
+
+            <section class="assumption-panel" data-assumption="mantencion" aria-label="Supuestos de mantención" hidden>
+              <div class="control-grid compact-grid">
+                <label class="control-card">
+                  <span>Mantenciones por año</span>
+                  <strong id="maintenance-count-output">3</strong>
+                  <input id="maintenanceCount" type="range" min="0" max="10" step="1" value="3" />
+                </label>
+
+                <label class="control-card">
+                  <span>Costo por mantención</span>
+                  <strong id="maintenance-cost-output">$350 mil</strong>
+                  <input id="maintenanceCost" type="range" min="0" max="990000" step="10000" value="350000" />
+                </label>
+              </div>
+            </section>
+
+            <section class="assumption-panel general-panel" data-assumption="general" aria-label="Costos generales" hidden>
+              <div class="control-grid general-grid">
+                <label class="control-card">
+                  <span>Permiso actual mensual</span>
+                  <strong id="permit-output">$1,00 mill</strong>
+                  <input id="permit" type="range" min="0" max="2000000" step="10000" value="1000000" />
+                </label>
+
+                <label class="control-card fixed-control">
+                  <span>Permiso Tesla</span>
+                  <strong id="tesla-permit-output">$220 mil</strong>
+                  <small>Los vehículos eléctricos pagan el 25% del total durante el primer año.</small>
+                  <input id="teslaPermit" type="range" min="0" max="1500000" step="10000" value="220000" />
+                </label>
+
+                <label class="control-card">
+                  <span>Seguro actual mensual</span>
+                  <strong id="insurance-output">$90 mil</strong>
+                  <input id="insurance" type="range" min="0" max="300000" step="5000" value="90000" />
+                </label>
+
+                <label class="control-card">
+                  <span>Seguro Tesla</span>
+                  <strong id="tesla-insurance-output">$70 mil</strong>
+                  <input id="teslaInsurance" type="range" min="0" max="300000" step="5000" value="70000" />
+                </label>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <button class="mobile-next" type="button" id="mobile-next" hidden>Siguiente página</button>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
