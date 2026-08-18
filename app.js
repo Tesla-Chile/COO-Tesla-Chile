@@ -76,6 +76,10 @@ const clp = new Intl.NumberFormat("es-CL", {
   maximumFractionDigits: 0,
 });
 const number = new Intl.NumberFormat("es-CL", { maximumFractionDigits: 1 });
+const efficiencyNumber = new Intl.NumberFormat("es-CL", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
 
 function compactClp(value, options = {}) {
   const absValue = Math.abs(value);
@@ -181,9 +185,9 @@ function updateControls() {
   const teslaModel = teslaModels[state.teslaModel];
   nodes.kmOutput.textContent = `${number.format(state.kmYear)} km`;
   nodes.efficiencyOutput.textContent = `${number.format(state.efficiency)} km/L`;
-  nodes.fuelPriceOutput.textContent = `${clp.format(fuel.price)}/l`;
-  nodes.kwhOutput.textContent = clp.format(state.kwhPrice);
-  nodes.teslaEfficiencyOutput.textContent = `${number.format(teslaModel.efficiency)} km/kWh`;
+  nodes.fuelPriceOutput.textContent = `${clp.format(fuel.price)}/L`;
+  nodes.kwhOutput.textContent = `${clp.format(state.kwhPrice)}/kWh`;
+  nodes.teslaEfficiencyOutput.textContent = `${efficiencyNumber.format(teslaModel.efficiency)} km/kWh`;
   nodes.maintenanceCountOutput.textContent = number.format(state.maintenanceCount);
   nodes.maintenanceCostOutput.textContent = compactClp(state.maintenanceCost);
   nodes.permitOutput.textContent = compactClp(state.permit, { forceMillionDecimal: true });
