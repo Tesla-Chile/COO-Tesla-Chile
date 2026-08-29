@@ -1,8 +1,8 @@
 const fuelTypes = {
-  bencina93: { label: "Bencina 93", price: 1436 },
-  bencina95: { label: "Bencina 95", price: 1485 },
-  bencina97: { label: "Bencina 97", price: 1534 },
-  diesel: { label: "Diesel", price: 1207 },
+  bencina93: { label: "Bencina 93", price: 1471 },
+  bencina95: { label: "Bencina 95", price: 1520 },
+  bencina97: { label: "Bencina 97", price: 1569 },
+  diesel: { label: "Diesel", price: 1304 },
 };
 
 const teslaModels = {
